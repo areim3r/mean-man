@@ -1,0 +1,20 @@
+.nav-wrapper
+
+	a.cta-btn.nav-item(href='/')
+		i.fa.fa-home
+		span Home
+	
+			
+	if user
+		a.cta-btn.nav-item(href='/settings')
+			i.fa.fa-wrench
+			span Settings
+		a.cta-btn.nav-item(href="/friends")
+			i.fa.fa-users
+			span Friends
+					
+		a.cta-btn.nav-item(href="/social-feed")
+			i.fa.fa-trophy
+			span Social Feed
+
+	.clear

@@ -1,0 +1,34 @@
+<div ng-controller='friends'>
+    <h3>search friends</h3>
+    <form ng-submit='searchFriends()'>
+        <input type='search' ng-model='searchFriend.username' name='search' placeholder='search'/>
+        <input type='submit' id='submit' value='submit'/>
+    </form>
+    <br/>
+    <div id='container'>
+        <div id='friends'>
+            <div ng-if='friend.username' ng-repeat='friend in addFriends track by $index'>
+                <span style='color: grey;'>{{friend.username}}</span>
+                <a style='cursor: pointer' ng-click="addFriend(friend.username)">add friend?</a>
+            </div>
+            <div ng-if='message.message' ng-repeat='message in messages track by $index'>
+                <span style='color: grey;'>{{message.message}}</span>
+            </div>
+            <div ng-if='pendingFriends'>
+                <h3>pending requests</h3>
+                <div id='{{pendingFriend.username+"-pending"}}' ng-repeat='pendingFriend in pendingFriends track by $index'>
+                    <span>{{pendingFriend.username}}</span>
+                    <a style='cursor: pointer' ng-click="resolveFriend(pendingFriend.username, true, pendingFriend.username+'-pending')">accept</a>
+                    <a style='cursor: pointer' ng-click="resolveFriend(pendingFriend.username, false, pendingFriend.username+'-pending')">ignore</a>
+                </div>
+            </div>
+            <div ng-if='friends'>
+                <h3>friends</h3>
+                <div ng-repeat='friend in friends track by $index'>
+                    <p style="color: grey">{{friend}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>

@@ -1,0 +1,45 @@
+.buddy-list-inner.module.buddy-list
+	.toggle-btn
+		span.line.vert
+		span.line.horz
+
+	.friends-wrapper
+		a.title-row(href="#" data-list-num="1")
+			h2 
+				span Buddy List
+				i.fa.fa-arrow-circle-o-down
+		.collapser(data-list-num="1")
+			.inner-scroller
+				ul.buddies#messages(ng-controller='friends')
+					li(class="username" style='cursor:pointer' ng-attr-id='{{friend}}' ng-click='private(friend)' onclick='changeRoom(this.id)' ng-repeat='friend in friends track by $index'){{friend}}
+					if user
+						button.cta-btn(ng-click='refreshFriends()')
+							span Refresh Friendlist
+		
+
+					
+
+	.chat-wrapper.global
+		a.title-row(href="#" data-list-num="3")
+			h2 
+				span Global Chat
+				i.fa.fa-arrow-circle-o-down
+		.collapser(data-list-num="3")
+			.inner-scroller
+				.msg-wrapper
+					ul#messages.chat.global
+		.bottom-part
+			form(action='' id='socketsForm')
+				input(type="text" id='m' placeholder="Start typing...")
+				button(class="cta-btn send-msg-button")
+					i.fa.fa-envelope-o
+					span Send Message
+	
+
+
+		
+
+
+
+			
+			

@@ -1,0 +1,49 @@
+.login-wrapper.login-nav
+	if user
+		a.cta-btn.nav-item(href='/', ng-click='logout()', ng-controller='logout')
+			i.fa.fa-sign-out
+			span Log Out
+	
+		
+
+	
+
+	if !user
+		if !user
+		
+		
+		.social-auth
+			.top
+				h4 Social Login
+			.bottom(ng-controller='login')
+				a.cta-btn.nav-item.small(ng-click='authProv("facebook")', href='/auth/facebook')
+					i.fa.fa-facebook
+				a.cta-btn.nav-item.small(ng-click='authProv("twitter")', href='/auth/twitter')
+					i.fa.fa-twitter
+				a.cta-btn.nav-item.small(ng-click='authProv("instagram")', href='/auth/instagram')
+					i.fa.fa-instagram
+			.clear
+		.regular-auth
+			a.cta-btn.nav-item(href='/login')
+				i.fa.fa-sign-in
+				span Log In
+			a.cta-btn.nav-item(href="/signup")
+				i.fa.fa-plus
+				span Sign Up Now
+		
+			
+				
+	if user
+		.social-auth
+			.top
+				h4 Authorize
+			.bottom
+				a.cta-btn.nav-item.small(ng-click='authorize("facebook")', ng-controller='authorize')
+					i.fa.fa-facebook
+				a.cta-btn.nav-item.small(ng-click='authorize("twitter")', ng-controller='authorize')
+					i.fa.fa-twitter
+				a.cta-btn.nav-item.small(ng-click='authorize("instagram")', ng-controller='authorize')
+					i.fa.fa-instagram
+			.clear            
+
+	.clear

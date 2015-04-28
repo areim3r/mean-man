@@ -1,0 +1,53 @@
+extends layout
+
+
+block content
+	#content.social-feed
+		.left-col.col-lg-6
+			.heading-bar
+				h3
+					i.fa.fa-twitter
+					span Twitter
+			div#twitter-feed(ng-controller='TwitterCtrl')
+				#tweets-list(ng-show="tweets")
+					.a-tweet(ng-repeat="tweet in tweets track by $index")
+						p.tweet-body
+							span.the-text {{tweet.status}}
+						a.the-author(href="http://twitter.com/{{tweet.user}}", target="_blank") - @{{tweet.user}}
+				.no-tweets(ng-hide="tweets")
+					//- h3 Apologies, m8. There were no tweets returned
+				.social-nav
+					button.cta-btn(type='button' value='refresh tweets' ng-click='reqTweets()')
+						span Get Tweets M8
+
+		.right-col.col-lg-6
+			.heading-bar
+				h3 
+					i.fa.fa-instagram
+					span Instagram
+			div#insta-feed.tile-section(ng-controller='InstaCtrl')
+				.grams-wrap(ng-show="grams")
+					div.a-tile(ng-repeat='gram in grams')
+							img(ng-src="{{gram.url}}")
+				.no-tweets(ng-hide="grams")
+					//- h3 Apologies, m8. There were no grams returned
+				.social-nav
+					button.cta-btn(type='button' value='Get Grams' ng-click='get_instagram_photos()')
+						span Get Grams M8
+
+		.clear
+
+
+		
+
+		
+	
+				
+		
+				
+
+	script.
+		var tweets = !{JSON.stringify(tweets)}
+		console.log(tweets)
+		var grams = !{JSON.stringify(grams)}
+		console.log(grams)

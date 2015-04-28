@@ -1,0 +1,7 @@
+.close-chat{
+    width:30px;
+    height:30px;
+    background-color:grey;
+    float:right;
+    cursor:pointer;
+}

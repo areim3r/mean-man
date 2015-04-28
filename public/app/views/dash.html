@@ -1,0 +1,10 @@
+<div ng-show='username'>
+    <h2>Welcome to MeanManagerJS</h2>
+    <h3>Hi, {{username}}. This is your dashboard.</h3>
+</div>
+    <img ng-if="user_img" ng-src="{{user_img}}" alt="profile image"/>
+
+<div ng-hide='username'>
+    <h2>Welcome to MeanManagerJS</h2>
+    <h3>Please <a href="/login">Log In</a> to view the dashboard</h3>
+</div>

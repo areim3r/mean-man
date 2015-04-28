@@ -1,0 +1,22 @@
+<div class="title-row">
+    <h2>Social Feed</h2>
+</div>
+
+<div id='twitter-feed' ng-controller='SocialFeed'>
+    <div id='tweets-list'>
+        <div class="a-tweet" ng-repeat='tweet in tweets track by $index'>
+            <p class='tweet-body'>
+                <span class='the-text'>{{tweet.status}}</span>
+                <a class='the-author' href='http://twitter.com/{{tweet.user}}' target='_blank'>
+                    - @{{tweet.user}}
+                </a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<div id='insta-feed' class='tile-section' ng-controller='SocialFeed'>
+        <div class='a-tile' ng-repeat='gram in grams track by $index'>
+            <img ng-src='{{gram.url}}'/>
+        </div>
+</div>

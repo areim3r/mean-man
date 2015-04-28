@@ -1,0 +1,58 @@
+doctype html
+html
+    head
+        title= title
+        base(href='/')
+        link(rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css")
+        link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css")
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        link(rel='stylesheet', href='/stylesheets/temp.css')
+    body(ng-app='mean-manager')
+        script(src='//use.typekit.net/xax6bty.js') 
+        script.
+          try{Typekit.load();}catch(e){}
+        
+        include alert-bar.html
+        include header.jade
+        
+        #wrap(ng-controller='init')
+            #main-col
+                .module
+                    .center
+            
+                    div(class='col-lg-9' ng-controller='SocialFeed')
+                      div(ng-view)
+
+
+            #buddy-list
+                include buddylist.jade
+                
+            
+                    
+        
+        script(src='https://code.jquery.com/jquery-1.11.2.min.js')
+        script(src='https://cdn.socket.io/socket.io-1.3.4.js')
+        
+        script(src='lib/angular/angular.js')
+        script(src='lib/angular-cookies/angular-cookies.js')
+        script(src='lib/angular-route/angular-route.js')
+        script(src='lib/angular-flash/dist/angular-flash.min.js')
+        
+        script(src='app/app.js')
+        script(src='app/config.js')
+        script(src='app/modules/social/services.js')
+        script(src='app/modules/friends/services.js')
+        script(src='app/modules/auth/services.js')
+        script(src='app/modules/dash/controllers.js')
+        script(src='app/modules/init/controllers.js')
+        script(src='app/modules/auth/controllers.js')
+        script(src='app/modules/social/controllers.js')
+        script(src='app/modules/friends/controllers.js')
+        
+        script(src='javascripts/scripts.js')
+        script(src='javascripts/sockets.js')
+        
+        script.
+          var user = !{JSON.stringify(user)}
+    
+    
