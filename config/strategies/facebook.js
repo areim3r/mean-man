@@ -7,7 +7,7 @@ var user_model = require('../../models/users'),
 module.exports = new FacebookStrategy({
     clientID: config.facebook.clientID,
     clientSecret: config.facebook.clientSecret,
-    callbackURL: "http://localhost:3000/auth/facebook/callback",
+    callbackURL: config.facebook.callbackURL,
     passReqToCallback: true
   },
   function(req, accessToken, refreshToken, profile, done) {

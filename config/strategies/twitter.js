@@ -7,7 +7,7 @@ var user_model = require('../../models/users'),
 module.exports = new TwitterStrategy({
     consumerKey: config.twitter.consumer_key,
     consumerSecret: config.twitter.consumer_secret,
-    callbackURL: "http://localhost:3000/auth/twitter/callback",
+    callbackURL: config.twitter.callbackURL,
     passReqToCallback: true
   },
   function(req, token, tokenSecret, profile, done) {

@@ -34,7 +34,6 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-//app.use(cookieParser()); // testing myCookieParser
 app.use(myCookieParser);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({ name: 'supermeancookie', secret: 'kung fu kitty', store: sessionStore, resave: true, saveUninitialized: true }));

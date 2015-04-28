@@ -35,9 +35,6 @@ router.get('/logout', function(req,res,next){
 
 router.use('/social', social.get);
 
-//router.get('/tweets', tweets.get);    deprecated into social route
-//router.get('/grams', grams.get);      deprecated into social route
-
 router.get('/update/tweets', tweets.update);
 router.get('/update/grams', grams.update);
 
