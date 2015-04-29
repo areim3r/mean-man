@@ -32,16 +32,11 @@ module.exports = {
     },
     connection: function (io) {
         io.on('connection', function(socket){
-            //console.log(socket);  // attach users friends to ids here
             
             if(socket.request.user.mm_username != undefined){
                 username = socket.request.user.mm_username;
                 users[username] = socket;
-                //console.log(socket.request.user);    the user who entered chat
-                //console.log('loggin users ', users);  // all logged in users in chat
-                //console.log(username);
                 io.emit('chat message', username+' joined the chat');
-                //socket.broadcast.emit('user connected');
             }
             socket.on('new buddy', function(data){
                 console.log(username);
@@ -73,21 +68,21 @@ module.exports = {
                         /////
                         // remove the underscores
                         var rmv_underscore = /_{2}/,
-                            asked_emoji = curr_word.replace(rmv_underscore, ''),
+                            txt_to_emoji = curr_word.replace(rmv_underscore, ''),
                             emojis = emoji.emoji,
                             isEmoji;
                         // get key_names to compare
                         var emos = Object.keys(emojis);
                         for(x=0;x<emos.length;x++){
-                            if(emos[x] == asked_emoji){ 
-                                var emoticon = emoji.get(asked_emoji)+',';
+                            if(emos[x] == txt_to_emoji){ 
+                                var emoticon = emoji.get(txt_to_emoji)+',';
                                 filtered_msg.push(emoticon);
                                 isEmoji = true;
                                 break;
                             }  
                         }
                         if(!isEmoji){ // if starts w/ __ but no emoji match, send word back
-                            filtered_msg.push(asked_emoji);    
+                            filtered_msg.push(txt_to_emoji);    
                         }
                     }
                     
@@ -100,22 +95,19 @@ module.exports = {
             });   
         });
     },
-    joinRoom: function(io){
+    store_user: function(io){
         var chat_rooms = [];
         io.on('connection', function(socket){
-            socket.on('subscribe', function(data) { 
-                console.log('joining room', data.room);
-                console.log(data.homeRoom);
+            socket.on('store user', function(user) { 
+                console.log('storing user', user);
+                users[user] = socket.id;
                 
-                socket.join(data.room);
-                chat_rooms.push(data.room);
+                console.log(users);
             });   
             
-                console.log(socket.rooms);
-            
-            socket.on('send', function(data) {
-                console.log('sending message', data);
-                io.sockets.in(data.room).emit('message', data);
+            socket.on('private message', function(data) {
+                var user = users[data.to];
+                io.to(user).emit('p-message', data);    // send message to specific user
             });
             
         });

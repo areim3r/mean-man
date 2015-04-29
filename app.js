@@ -34,6 +34,7 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+//app.use(cookieParser()); // testing myCookieParser
 app.use(myCookieParser);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({ name: 'supermeancookie', secret: 'kung fu kitty', store: sessionStore, resave: true, saveUninitialized: true }));
@@ -47,7 +48,7 @@ var io_events = './sockets/events';
 require(io_events).session(io, sessionStore, cookieParser);
 require(io_events).connection(io);
 require(io_events).message(io);
-require(io_events).joinRoom(io);
+require(io_events).store_user(io);
 
 var io_export = { io: io, sessionStore: sessionStore, cookieParser: cookieParser };
 
