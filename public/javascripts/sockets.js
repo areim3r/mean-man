@@ -117,7 +117,7 @@ socket.on('chat message', function(msg, username){
 
 socket.on('p-message', function (data) {
     if($('#chatDisplay-'+data.from).attr('id') != undefined){   // if the chat box has been opened
-        var _li = $('<li>').html('<span class="message">'+data.message+'</span>');
+        var _li = $('<li>').html('<span class="userSymbol">'+data.to+'</span><span class="message">'+data.message+'</span>');
         $('#chatDisplay-'+data.from).append(_li);
     }else{      // create a chat box between target user and current user
         var toUser = data.to,
@@ -142,11 +142,6 @@ function privateChat(username, message, self){
     console.log('to user: ', un);
     socket.emit('private message', { message: message, from: user.mm_username, to: un });
     
-    var _li = $('<li>').html('<span class="message">'+message+'</span>');
-    $('#chatDisplay-'+un).append(_li);
-    if(self){
-        $('#chatDisplay-'+self).append(_li);
-    }
     chatIn.val('');
 }
 
@@ -157,8 +152,11 @@ function privateDialogue(toUser, fromUser, message){
             var chatIn = "<form onsubmit='event.preventDefault();  privateChat(this.id, this.value, "+'"'+fromUser+'"'+")' id='chat-"+fromUser+"' action=' '><input id='chatIn-"+fromUser+"' class='chatIn' type='text' placeholder='message...'/></form>";
             var chatbox = "<div ng-controller='friends' class='privateChat chat' id='messages'>"+chatDisplay+chatIn+"<div class='close-chat' onclick='closeChat("+"'chatDisplay-"+fromUser+"'"+")'></div><h6 class='pchat-heading username'>"+fromUser+"</h6></div>";
             el.append(chatbox);
-            var _li = $('<li>').html('<span class="message">'+message+'</span>');
+            var _li = $('<li>').html('<span class="userSymbol">'+toUser+'</span><span class="message">'+message+'</span>');
             $('#chatDisplay-'+fromUser).append(_li);
+    }else{
+        var _li = $('<li>').html('<span class="userSymbol">'+toUser+'</span><span class="message">'+message+'</span>');
+        $('#chatDisplay-'+toUser).append(_li);   
     }
 }
 

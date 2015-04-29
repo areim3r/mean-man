@@ -3,6 +3,48 @@ var emoji = require('node-emoji');
 
 var users = {};
 
+function parseMessage(words){
+    var filtered_msg = [];
+    for(x in words){
+                    var emo_check = /^_{2}/gm,
+                        curr_word = words[x],
+                        wantsEmoji = emo_check.test(curr_word);
+                    if(!wantsEmoji){
+                        filtered_msg.push(curr_word); 
+                    }else{
+                        /////
+                        //-- to use emojis
+                        //-- simply prepend __ to the name, ie wink emoji is: __wink
+                        //-- list of available emojis here: http://www.emoji-cheat-sheet.com/
+                        /////
+                        // remove the underscores
+                        var rmv_underscore = /_{2}/,
+                            txt_to_emoji = curr_word.replace(rmv_underscore, ''),
+                            emojis = emoji.emoji,
+                            isEmoji;
+                        // get key_names to compare
+                        var emos = Object.keys(emojis);
+                        for(x=0;x<emos.length;x++){
+                            if(emos[x] == txt_to_emoji){ 
+                                var emoticon = emoji.get(txt_to_emoji)+',';
+                                filtered_msg.push(emoticon);
+                                isEmoji = true;
+                                break;
+                            }  
+                        }
+                        if(!isEmoji){ // if starts w/ __ but no emoji match, send word back
+                            filtered_msg.push(txt_to_emoji);    
+                        }
+                    }
+                    
+                }
+    var join_words = filtered_msg.join(),
+        rmv_comma = /,/gm,
+        new_msg = join_words.replace(rmv_comma, ' ');
+                    
+    return new_msg;
+}
+
 module.exports = {
     session: function(io, sessionStore, cookieParser){
         
@@ -51,47 +93,11 @@ module.exports = {
     },
     message: function (io) {
         io.on('connection', function(socket){
-            socket.on('chat message', function (msg, username) {
-                var filtered_msg = [];
+            socket.on('chat message', function (msg, isPrivate) {
                 var words = msg.split(' ');
-                for(x in words){
-                    var emo_check = /^_{2}/gm,
-                        curr_word = words[x],
-                        wantsEmoji = emo_check.test(curr_word);
-                    if(!wantsEmoji){
-                        filtered_msg.push(curr_word); 
-                    }else{
-                        /////
-                        //-- to use emojis
-                        //-- simply prepend __ to the name, ie wink emoji is: __wink
-                        //-- list of available emojis here: http://www.emoji-cheat-sheet.com/
-                        /////
-                        // remove the underscores
-                        var rmv_underscore = /_{2}/,
-                            txt_to_emoji = curr_word.replace(rmv_underscore, ''),
-                            emojis = emoji.emoji,
-                            isEmoji;
-                        // get key_names to compare
-                        var emos = Object.keys(emojis);
-                        for(x=0;x<emos.length;x++){
-                            if(emos[x] == txt_to_emoji){ 
-                                var emoticon = emoji.get(txt_to_emoji)+',';
-                                filtered_msg.push(emoticon);
-                                isEmoji = true;
-                                break;
-                            }  
-                        }
-                        if(!isEmoji){ // if starts w/ __ but no emoji match, send word back
-                            filtered_msg.push(txt_to_emoji);    
-                        }
-                    }
-                    
-                }
-                var join_words = filtered_msg.join(),
-                    rmv_comma = /,/gm,
-                    new_msg = join_words.replace(rmv_comma, ' '),
-                    username = socket.request.user.mm_username;
-                io.emit('chat message', new_msg, username);
+                var message = parseMessage(words);
+                var username = socket.request.user.mm_username;
+                io.emit('chat message', message, username);
             });   
         });
     },
@@ -106,8 +112,11 @@ module.exports = {
             });   
             
             socket.on('private message', function(data) {
-                var user = users[data.to];
+                var user = users[data.to],
+                    words = data.message.split(' ');
+                data.message = parseMessage(words);
                 io.to(user).emit('p-message', data);    // send message to specific user
+                io.to(socket.id).emit('p-message', data);
             });
             
         });

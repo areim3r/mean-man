@@ -5,3 +5,21 @@
     float:right;
     cursor:pointer;
 }
+
+.chatDisplay{
+    padding:0!important;
+    list-style-type: none!important;
+}
+
+.userSymbol{
+    color:aliceblue;
+    padding-right: 5px;
+}
+
+.message{
+    font-size: 10pt!important;   
+}
+
+.privateChat{
+    max-width:250px;   
+}
