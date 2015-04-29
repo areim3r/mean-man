@@ -1,13 +1,14 @@
 .close-chat{
-    width:30px;
-    height:30px;
-    background-color:grey;
     float:right;
     cursor:pointer;
+    position:absolute;
+    bottom:5px;
+    right:5px;
+    color:#87A7B4;
 }
 
 .chatDisplay{
-    padding:0!important;
+    padding:10px 0 0 0 !important;
     list-style-type: none!important;
 }
 
@@ -21,5 +22,45 @@
 }
 
 .privateChat{
+    margin-left:10px;
     max-width:250px;   
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    padding:0;
+    float:left;
+    position:relative;
+}
+
+.msgsContainer{
+    max-height:140px;
+    overflow-y: hidden;
+    transition: overflow-y 0.4s;
+}
+.msgsContainer:hover {
+    overflow-y: auto;   
+}
+
+.chatIn{
+    border-radius:0!important;  
+    height:35px;
+    margin: 0 0 10px 0;
+    padding: 0 20px;
+    font-size:9pt!important;
+}
+
+header{
+    position:fixed!important;
+    top:0;
+    z-index: 10;
+}
+
+.privateChatBox li{
+    background-color:rgba(255,255,255,0.1);padding:5px 10px;margin-bottom:5px;display:block;
+}
+.privateChatBox li .message{
+    font-family:"proxima-nova-n7","proxima-nova",sans-serif;font-style:normal;font-weight:100;font-size:16px;line-height:1.5;color:#87a7b4;letter-spacing:1px;
+}
+
+.pchat-heading{
+    font-size:9pt!important   
 }

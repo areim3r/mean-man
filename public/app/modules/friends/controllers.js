@@ -38,23 +38,12 @@ angular.module('mean-manager')
                 $scope.messages = data.messages;
             }, user, decision);
         }
-        /*
+        
         $scope.private = function(user){
-            var el = angular.element('#header .module');
+            var el = angular.element('#header');
             var chatDisplay = "<ul id='chatDisplay-"+user+"' class='chatDisplay'></ul>";
-            var toClose = ('chatDisplay-'+user).toString();
             var chatIn = "<form onsubmit='event.preventDefault(); privateChat(this.id, this.value)' id='chat-"+user+"' action=' '><input id='chatIn-"+user+"' class='chatIn' type='text' placeholder='message...'/></form>";
-            var chatbox = "<div ng-controller='friends' class='privateChat chat' id='messages'>"+chatDisplay+chatIn+"<div class='close-chat' onclick='closeChat("+toClose+")'></div><h6 class='pchat-heading'>"+user+"</h6></div>";
-            
-            el.append(chatbox);
-        }
-        */
-        $scope.private = function(user){
-            var el = angular.element('#header .module');
-            var chatDisplay = "<ul id='chatDisplay-"+user+"' class='chatDisplay'></ul>";
-            var toClose = ('chatDisplay-'+user).toString();
-            var chatIn = "<form onsubmit='event.preventDefault(); privateChat(this.id, this.value)' id='chat-"+user+"' action=' '><input id='chatIn-"+user+"' class='chatIn' type='text' placeholder='message...'/></form>";
-            var chatbox = "<div ng-controller='friends' class='privateChat chat' id='messages'>"+chatDisplay+chatIn+"<div class='close-chat' onclick='closeChat("+toClose+")'></div><h6 class='pchat-heading'>"+user+"</h6></div>";
+            var chatbox = "<div ng-controller='friends' class='privateChat chat privateChatBox' id='chatbox-"+user+"'>"+"<div id='p-msg-"+user+"' class='msgsContainer'>"+chatDisplay+"</div>"+chatIn+"<i id='close-"+user+"' class='close-chat fa fa-times fa-lg' onclick='closeChat(this.id)'></i><h6 class='pchat-heading'>"+user+"</h6></div>";
             
             el.append(chatbox);
         }
